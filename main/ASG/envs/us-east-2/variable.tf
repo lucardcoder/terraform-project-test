@@ -8,3 +8,11 @@ variable "tags" {
   type        = map(any)
   default     = {}
 }
+
+# variable "access_key" {
+#   type = "string"
+# }
+
+# variable "secret_key" {
+#   type = "string"
+# }

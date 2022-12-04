@@ -1,13 +1,19 @@
+data "aws_caller_identity" "current" {}
+
+
+locals {
+  account_id = data.aws_caller_identity.current.account_id
+}
+
 
 data "terraform_remote_state" "backend" {
   backend = "s3"
   config = {
-    bucket = "tfstate-983909746875"
-    key    = "tfstate-team1"
+    bucket = "tfstate-${local.account_id}"
+    key    = "tfstate-team1/dev/team1"
     region = "us-east-1"
   }
 }
-
 
 #data "aws_caller_identity" "current" {}
 
@@ -19,19 +25,19 @@ data "terraform_remote_state" "backend" {
 
 
 data "aws_ami" "amazon-linux-2" {
- most_recent = true
+  most_recent = true
 
 
- filter {
-   name   = "owner-alias"
-   values = ["amazon"]
- }
+  filter {
+    name   = "owner-alias"
+    values = ["amazon"]
+  }
 
 
- filter {
-   name   = "name"
-   values = ["amzn2-ami-hvm*"]
- }
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm*"]
+  }
 }
 
 
@@ -99,7 +105,7 @@ module "asg" {
   launch_template_name        = "Project-asg"
   launch_template_description = "Launch template example"
   update_default_version      = true
-  image_id                    = data.aws_ami.amazon-linux-2.id      #"ami-0b0dcb5067f052a63"
+  image_id                    = data.aws_ami.amazon-linux-2.id #"ami-0b0dcb5067f052a63"
   instance_type               = "t3.micro"
   ebs_optimized               = false
   enable_monitoring           = false

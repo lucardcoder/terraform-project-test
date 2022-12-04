@@ -1,14 +1,22 @@
 
+data "aws_caller_identity" "current" {}
+
+
+locals {
+  account_id = data.aws_caller_identity.current.account_id
+}
+
+
 data "terraform_remote_state" "backend" {
   backend = "s3"
   config = {
-    bucket = "tfstate-983909746875"
-    key    = "tfstate-team1"
+    bucket = "tfstate-${local.account_id}"
+    key    = "tfstate-team1/dev/team1"
     region = "us-east-1"
   }
 }
 
-# data "aws_caller_identity" "current" {}
+
 
 
 # data "aws_ami" "this" {
@@ -18,19 +26,19 @@ data "terraform_remote_state" "backend" {
 
 
 data "aws_ami" "amazon-linux-2" {
- most_recent = true
+  most_recent = true
 
 
- filter {
-   name   = "owner-alias"
-   values = ["amazon"]
- }
+  filter {
+    name   = "owner-alias"
+    values = ["amazon"]
+  }
 
 
- filter {
-   name   = "name"
-   values = ["amzn2-ami-hvm*"]
- }
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm*"]
+  }
 }
 
 

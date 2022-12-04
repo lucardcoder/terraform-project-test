@@ -3,6 +3,16 @@ variable "cidr_block" {
   type        = string
   default     = ""
 }
+
+# variable "access_key" {
+#   type = "string"
+# }
+
+# variable "secret_key" {
+#   type = "string"
+# }
+
+
 variable "region" {
   description = "Please provide a region name"
   type        = string
