@@ -13,16 +13,18 @@ destroy:
 
 # build-ohio:
 
-# 		cd main/VPC/envs/us-east-2 && terraform init && terraform apply -var-file env.tfvars -auto-approve
-
 # 		cd main/ASG/envs/us-east-2 && terraform init && terraform apply -var-file env.tfvars -auto-approve
+
+# 		cd main/VPC/envs/us-east-2 && terraform init && terraform apply -var-file env.tfvars -auto-approve
 
 
 # destroy-ohio:
 
+# 		cd main/ASG/envs/us-east-2 terraform destroy -var-file env.tfvars -auto-approve
+
 # 		cd main/VPC/envs/us-east-2 terraform destroy -var-file env.tfvars -auto-approve
 
-# 		cd main/ASG/envs/us-east-2 terraform destroy -var-file env.tfvars -auto-approve
+
 
 
 
