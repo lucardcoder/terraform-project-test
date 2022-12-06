@@ -9,6 +9,11 @@ variable "tags" {
   default     = {}
 }
 
+
+variable "domain_name" {
+  type        = string
+  description = "Please provide domain name"
+}
 # variable "access_key" {
 #   type = "string"
 # }

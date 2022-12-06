@@ -6,5 +6,7 @@ tags = {
   Name = "Terraform-project"
   Team = "Team-1"
 }
+ 
+domain_name = "tamiladevop.com"
 
 

@@ -10,7 +10,7 @@ locals {
 data "terraform_remote_state" "backend" {
   backend = "s3"
   config = {
-    bucket = "tfstate-${local.account_id}"
+    bucket = "tfstate${local.account_id}"
     key    = "tfstate-team1/dev/team1"
     region = "us-east-1"
   }
@@ -119,6 +119,8 @@ module "asg" {
   tags = var.tags
 }
 
+
+
 #Create ALB
 
 module "alb" {
@@ -154,6 +156,19 @@ module "alb" {
   tags = var.tags
 }
 
+
+data "aws_route53_zone" "this" {
+  name         = var.domain_name
+  private_zone = false
+}
+
+resource "aws_route53_record" "wordpress" {
+  zone_id = data.aws_route53_zone.this.zone_id
+  name    = "wordpress.${var.domain_name}"
+  type    = "CNAME"
+  ttl     = "60" # descrease to test purpose, deafult 300
+  records = [module.alb.lb_dns_name]
+}
 
 
 
